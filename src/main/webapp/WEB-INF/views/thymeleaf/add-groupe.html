@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter / Modifier un Groupe</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f0f2f5; }
+        .navbar-brand-custom { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .card { border: none; border-radius: 12px; }
+        .btn-gradient { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border: none; color: white; }
+        .btn-gradient:hover { opacity: 0.9; color: white; }
+        .page-header { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; padding: 2rem; border-radius: 0 0 20px 20px; margin-bottom: 2rem; }
+        .form-label { font-weight: 500; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-brand-custom">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/}"><i class="bi bi-person-lines-fill"></i> Contacts App</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" th:href="@{/}">Accueil</a>
+                <a class="nav-link" th:href="@{/contacts}">Contacts</a>
+                <a class="nav-link active" th:href="@{/groupes}">Groupes</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header text-center">
+            <h1><i class="bi bi-collection"></i> <span th:text="${groupe.id != null ? 'Modifier' : 'Ajouter'}">Ajouter</span> un Groupe</h1>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <form th:action="${groupe.id != null} ? @{/groupes/update} : @{/groupes/save}" method="post">
+                            <input type="hidden" th:if="${groupe.id != null}" name="id" th:value="${groupe.id}">
+
+                            <div class="mb-3">
+                                <label class="form-label">Nom du groupe *</label>
+                                <input type="text" class="form-control" name="nom" th:value="${groupe.nom}" required placeholder="Ex: Famille, Amis, Travail...">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" name="description" rows="3" th:text="${groupe.description}" placeholder="Description du groupe..."></textarea>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-gradient"><i class="bi bi-check-lg"></i> Enregistrer</button>
+                                <a th:href="@{/groupes}" class="btn btn-outline-secondary"><i class="bi bi-x-lg"></i> Annuler</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 mt-4 text-muted"><p>Spring MVC - Thymeleaf | Contacts App</p></footer>
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

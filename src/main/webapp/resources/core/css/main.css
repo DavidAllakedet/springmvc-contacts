@@ -1,0 +1,58 @@
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand-custom {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+.stat-card {
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.btn-gradient {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    border: none;
+    color: white;
+}
+
+.btn-gradient:hover {
+    opacity: 0.9;
+    color: white;
+}
+
+.page-header {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 2rem;
+}
+
+.table th {
+    font-weight: 600;
+    color: #495057;
+    background: #f8f9fa;
+}
+
+.contact-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 0.85rem;
+}
