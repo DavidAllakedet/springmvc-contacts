@@ -10,14 +10,20 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import javax.servlet.ServletContext;
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.contact.app")
 public class SpringWebConfig implements WebMvcConfigurer {
 
+    @Autowired
+    private ServletContext servletContext;
+
     @Bean
     public ServletContextTemplateResolver templateResolver() {
-        ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
+        ServletContextTemplateResolver resolver = new ServletContextTemplateResolver(servletContext);
         resolver.setPrefix("/WEB-INF/views/thymeleaf/");
         resolver.setSuffix(".html");
         resolver.setTemplateMode("HTML");
