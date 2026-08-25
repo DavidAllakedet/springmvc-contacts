@@ -14,21 +14,36 @@
         .btn-gradient:hover { opacity: 0.9; color: white; }
         .page-header { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; padding: 2rem; border-radius: 0 0 20px 20px; margin-bottom: 2rem; }
         .table th { font-weight: 600; }
+        .nav-active { border-bottom: 2px solid white; }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-brand-custom">
         <div class="container">
             <a class="navbar-brand fw-bold" th:href="@{/}"><i class="bi bi-person-lines-fill"></i> Contacts App</a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" th:href="@{/}">Accueil</a>
-                <a class="nav-link" th:href="@{/contacts}">Contacts</a>
-                <a class="nav-link active" th:href="@{/groupes}">Groupes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" th:href="@{/}">Accueil</a>
+                    <a class="nav-link" th:href="@{/contacts}">Contacts</a>
+                    <a class="nav-link nav-active" th:href="@{/groupes}">Groupes</a>
+                </div>
             </div>
         </div>
     </nav>
 
     <div class="container">
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <i class="bi bi-check-circle-fill"></i> <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <i class="bi bi-exclamation-triangle-fill"></i> <span th:text="${errorMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
         <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
             <h2><i class="bi bi-collection"></i> Groupes</h2>
             <a th:href="@{/groupes/add}" class="btn btn-gradient"><i class="bi bi-plus-lg"></i> Nouveau Groupe</a>
@@ -50,7 +65,9 @@
                             <div class="card-footer bg-white d-flex gap-2">
                                 <a th:href="@{/contacts(groupeId=${groupe.id})}" class="btn btn-sm btn-outline-success"><i class="bi bi-people"></i> Voir contacts</a>
                                 <a th:href="@{/groupes/edit/{id}(id=${groupe.id})}" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i></a>
-                                <a th:href="@{/groupes/delete/{id}(id=${groupe.id})}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Supprimer?')"><i class="bi bi-trash"></i></a>
+                                <form th:action="@{/groupes/delete/{id}(id=${groupe.id})}" method="post" style="display:inline" onsubmit="return confirm('Supprimer ce groupe?')">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                </form>
                             </div>
                         </div>
                     </div>

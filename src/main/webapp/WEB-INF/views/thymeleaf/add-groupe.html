@@ -14,21 +14,32 @@
         .btn-gradient:hover { opacity: 0.9; color: white; }
         .page-header { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; padding: 2rem; border-radius: 0 0 20px 20px; margin-bottom: 2rem; }
         .form-label { font-weight: 500; }
+        .nav-active { border-bottom: 2px solid white; }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-brand-custom">
         <div class="container">
             <a class="navbar-brand fw-bold" th:href="@{/}"><i class="bi bi-person-lines-fill"></i> Contacts App</a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" th:href="@{/}">Accueil</a>
-                <a class="nav-link" th:href="@{/contacts}">Contacts</a>
-                <a class="nav-link active" th:href="@{/groupes}">Groupes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" th:href="@{/}">Accueil</a>
+                    <a class="nav-link" th:href="@{/contacts}">Contacts</a>
+                    <a class="nav-link nav-active" th:href="@{/groupes}">Groupes</a>
+                </div>
             </div>
         </div>
     </nav>
 
     <div class="container">
+        <div th:if="${nomError}" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <i class="bi bi-exclamation-triangle-fill"></i> <span th:text="${nomError}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
         <div class="page-header text-center">
             <h1><i class="bi bi-collection"></i> <span th:text="${groupe.id != null ? 'Modifier' : 'Ajouter'}">Ajouter</span> un Groupe</h1>
         </div>
@@ -42,7 +53,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Nom du groupe *</label>
-                                <input type="text" class="form-control" name="nom" th:value="${groupe.nom}" required placeholder="Ex: Famille, Amis, Travail...">
+                                <input type="text" class="form-control" name="nom" th:value="${groupe.nom}" required placeholder="Ex: Famille, Amis, Travail..." maxlength="100">
                             </div>
 
                             <div class="mb-3">
